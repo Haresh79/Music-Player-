@@ -120,15 +120,18 @@ close
 <section></section>
 <section></section>
 <section></section>
+<section></section>
 </div>
 <audio id="aud0" src="videoplayback (3).mp3" ></audio>
 <audio id="aud1" src="Hickory Hollow - Dan Lebowitz.mp3" ></audio>
 <audio id="aud2" src="Life of Riley - Kevin MacLeod.mp3" ></audio>
+ <audio id="aud3" src="AEVideoToAudio1681635139257.m4a"></audio>
 <script type="text/javascript">
 let i=0;
 let aud_0=document.getElementById('aud0')
 let aud_1=document.getElementById('aud1')
 let aud_2=document.getElementById('aud2')
+let aud_3=document.getElementById('aud3')
 
   const songs=[
      {name:"Wada Raha Pyar se Pyar ka...",
@@ -136,7 +139,9 @@ let aud_2=document.getElementById('aud2')
      {name:"Hickory Hollow...",
       src:"Hickory Hollow - Dan Lebowitz.mp3"},
     { name:"Life of Riley...",
-      src:"Life of Riley - Kevin MacLeod.mp3"}
+      src:"Life of Riley - Kevin MacLeod.mp3"},
+    {name:"Tere Bin ...",
+     src:"AEVideoToAudio1681635139257.m4a"}
   ];
 let song_name = document.getElementById('songname');
 let songSrc = document.querySelector("audio");
@@ -163,6 +168,7 @@ function changeSong(songs){
      aud_0.pause();
      aud_1.pause();
      aud_2.pause();
+     aud_3.pause();
      songSrc.src=songs.src;
      bgcolor();
 }
@@ -197,6 +203,7 @@ songList[2].innerText=": "+songs[2].name;
   aud_0.play();
   aud_1.pause();
   aud_2.pause();
+  aud_3.pause();
   songSrc.pause();
   })
   
@@ -204,6 +211,7 @@ songList[2].innerText=": "+songs[2].name;
   aud_1.play();
   aud_0.pause();
   aud_2.pause();
+  aud_3.pause();
   songSrc.pause();
   })
   
@@ -211,6 +219,15 @@ songList[2].innerText=": "+songs[2].name;
   aud_2.play();
   aud_0.pause();
   aud_1.pause();
+  aud_3.pause();
+  songSrc.pause();
+  })
+
+  songList[3].addEventListener('click',()=>{
+  aud_3.play();
+  aud_0.pause();
+  aud_1.pause();
+  aud_2.pause();
   songSrc.pause();
   })
 </script>
