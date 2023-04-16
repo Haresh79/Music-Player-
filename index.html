@@ -1,0 +1,218 @@
+<!DOCTY1PE html>
+<html>
+<head>
+<title>music player</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<style type="text/css">
+.interface{
+  height:1800px; width:950px; margin:auto; position:relative;
+  background-color:#ede8fc; border-radius:30px;
+}
+.watch_list span{
+  font-size:150px; padding:30px;
+  cursor:pointer;
+  text-shadow:1px 1px 2px #03fc8c;
+
+}
+#volumebar{
+margin:auto; margin-top:60px;
+height:5px; width:60%;
+background-color:black;
+}
+.vlm{position:absolute;left:19%; height:0px; width:61%;}
+#vlmdown{position:absolute; top:12.6%; left:8%; font-size:90px;}
+#vlmup{position:absolute; top:13%; right:8%; font-size:70px;}
+
+.image{
+display:flex; margin-top:50px;
+justify-content:center;
+}
+#songname{
+margin-top:130px;
+text-align:center;
+font-size:50px;
+font-weight:bold;
+user-select:none;
+}
+.songs{
+display:flex;
+justify-content:center;
+margin-top:40%;
+}
+audio{box-shadow:1px 2px 3px black;
+ border-radius:50px; }
+.btns{
+ position:relative;
+}
+.btn{
+margin-left:100px; margin-top:-8%; margin-right:100px;
+height:80px; width:85px; font-size:80px;
+border:none; user-select:none;
+box-shadow:0px 3px 2px ;
+background-color:#f0f0f0;
+border-radius:50%;
+}
+.btn:active{
+box-shadow:none;
+background-color:#e01969;
+}
+#prev{float:left;}
+#next{ float:right;}
+
+.watchlist_bar{
+height:1800px; width:950px; margin:auto;
+display:grid; background-color:#bfbfbf;
+grid-template-rows:auto auto auto;
+border-radius:30px; position:relative; 
+display:none; padding-top:10px;
+}
+.watchlist_bar>section{
+border:1px solid black; margin:auto; margin-top:40px; 
+height:60px; width:80%; background-color:#212121; user-select:none;
+border-radius:10px; text-align:left; font-size:40px;
+padding:15px; color:white; box-shadow:0px 0px 5px #03fc8c;
+}
+.watchlist_bar>section:active{box-shadow:none;}
+#close{
+cursor:pointer;
+font-size:150px; padding:30px;
+font-weight:bold;
+text-shadow:1px 1px 2px #03fc8c;
+}
+</style>
+</head>
+<body bgcolor="black" >
+  <div class="interface">
+  <div class="watch_list" onclick="watchList()"><span class="material-symbols-outlined">
+  queue_music
+  </span></div>
+  <div id="volumebar">
+     <span id="vlmdown" class="material-symbols-outlined">
+     volume_down
+     </span>
+     <input type="range"  class="vlm" min="0" max="1" value="0.5" step=".01"  >
+     <span id="vlmup" class="material-symbols-outlined">
+     volume_up
+     </span>
+  </div>
+  <div class="image"><img src="record1.gif" width="600px" id="img"></div>
+  <div id="songname"></div>
+  <div class="songs">
+       <audio controls="" autoplay="autoplay"
+        src="videoplayback (3).mp3">
+       </audio>
+  </div>
+  <div class="btns">
+      <button id="perv" class="btn" onclick="prevSong()"
+      ><span class="material-symbols-outlined">
+      skip_previous
+      </span></button>
+     
+      <button id="next" class="btn"><span class="material-symbols-outlined">
+      skip_next
+      </span></button>
+  </div>
+</div>
+<div class="watchlist_bar">
+<span class="material-symbols-outlined" id="close" onclick="watchlist_close()">
+close
+</span>
+<section></section>
+<section></section>
+<section></section>
+</div>
+<audio id="aud0" src="videoplayback (3).mp3" ></audio>
+<audio id="aud1" src="Hickory Hollow - Dan Lebowitz.mp3" ></audio>
+<audio id="aud2" src="Life of Riley - Kevin MacLeod.mp3" ></audio>
+<script type="text/javascript">
+let i=0;
+let aud_0=document.getElementById('aud0')
+let aud_1=document.getElementById('aud1')
+let aud_2=document.getElementById('aud2')
+
+  const songs=[
+     {name:"Wada Raha Pyar se Pyar ka...",
+      src:"videoplayback (3).mp3"},
+     {name:"Hickory Hollow...",
+      src:"Hickory Hollow - Dan Lebowitz.mp3"},
+    { name:"Life of Riley...",
+      src:"Life of Riley - Kevin MacLeod.mp3"}
+  ];
+let song_name = document.getElementById('songname');
+let songSrc = document.querySelector("audio");
+function watchList(){
+  document.querySelector('.interface').style.display="none";
+  document.querySelector('.watchlist_bar').style.display="block";
+
+}
+function watchlist_close(){
+  document.querySelector('.interface').style.display="block";
+  document.querySelector('.watchlist_bar').style.display="none";
+  
+}
+function bgcolor(){
+  let r = (Math.floor(Math.random()*256)+64);
+  let g = (Math.floor(Math.random()*256)+64);
+  let b = (Math.floor(Math.random()*256)+64);
+  let bgColor= "rgb("+r+","+g+","+b+")";
+document.querySelector(".interface").style.background=bgColor;
+}
+
+function changeSong(songs){
+     song_name.innerText=songs.name;
+     aud_0.pause();
+     aud_1.pause();
+     aud_2.pause();
+     songSrc.src=songs.src;
+     bgcolor();
+}
+const next = document.getElementById('next');
+const prev = document.getElementById('prev');
+let volume = document.querySelector('#volumebar input');
+//console.log(volume)
+next.addEventListener('click',()=>{
+ /*very very important formula*/
+     i=(i+1)%songs.length;
+     changeSong(songs[i])
+});
+const prevSong=()=>{
+/*verry verry important formula */
+  i=(i-1+songs.length)%songs.length;
+  changeSong(songs[i])
+}
+const handelVolume=(e)=>{
+  songSrc.volume=e.target.value;
+}
+
+volume.addEventListener("input", handelVolume);
+
+changeSong(songs[0])
+
+let songList = document.querySelectorAll('section');
+songList[0].innerText=": "+songs[0].name;
+songList[1].innerText=": "+songs[1].name;
+songList[2].innerText=": "+songs[2].name;
+
+  songList[0].addEventListener('click',()=>{
+  aud_0.play();
+  aud_1.pause();
+  aud_2.pause();
+  songSrc.pause();
+  })
+  
+  songList[1].addEventListener('click',()=>{
+  aud_1.play();
+  aud_0.pause();
+  aud_2.pause();
+  songSrc.pause();
+  })
+  
+  songList[2].addEventListener('click',()=>{
+  aud_2.play();
+  aud_0.pause();
+  aud_1.pause();
+  songSrc.pause();
+  })
+</script>
+</body>
+</html>
